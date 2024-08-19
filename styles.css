@@ -1,0 +1,10 @@
+h5{
+    font-size: 15px;
+    font-weight: bold;
+}
+div.card-body{
+    padding: 10px;
+}
+p.card-text{
+    font-size: 12px;
+}

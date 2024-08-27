@@ -55,6 +55,6 @@ document.getElementById("bestproduct").innerHTML  = products.map((element)=>{
 }).join("")
 
  document.getElementById("countCart").innerHTML = totalInCart;
- console.log(products.productnew)
- console.log(ButtonCart)
+//  console.log(products.productnew)
+//  console.log(ButtonCart)
  CountCart();

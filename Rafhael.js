@@ -220,7 +220,7 @@ function addToCart(e){
         inlocal = JSON.parse(localStorage.getItem(id))
         counter = Number(inlocal.count)
  
-        console.log(totalprice);
+        // console.log(totalprice);
         inlocal=({
           id : e,
           count:counter-1
@@ -274,4 +274,3 @@ const ButtonCart = totalInCart;
 const returnToIndex  = () => {
     window.location.href = '/Midterm-Project/index.html'
 }
-HowmanyinCart()

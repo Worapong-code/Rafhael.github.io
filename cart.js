@@ -1,82 +1,83 @@
 
-let idCart =  localStorage.getItem("id");
-const arr = idCart.split(',');
-
-let allday=''
-let count = 0;
-
-// arr.forEach(element => {
-  
-//  const allday2 = products.map( (props) =>{
-//     if(props.id==element){
-//       console.log( arr)
-//       return (
-//         `<tr >
-//          <th scope="list-inline ">${props.id}</th>
-//          <td><img src="${props.url}" style="width: 4rem;" alt=""></td>
-//          <td>${props.name}</td>
-//          <td class="row justify-content-start">
-//            <h5 class="col-sm-2 ">
-//            ${count}
-//            </h5>
-//            <a class="btn btn-primary col-sm-2 btn-sm" onclick="addToCart(${props.id})">+</a>
-//            <a class="btn btn-danger col-sm-2 ml-1 btn-sm">-</a>
-//          </td>
-//          <td>${props.price*count}</td>
-//        </tr>`
-//       )
-//     }
-//   }).join('');
-//   allday += allday2;
-  
-//   // console.log(data)
-//    document.getElementById('inCart').innerHTML = allday
-// });
-
-
-   
-
-
-    // console.log( idCart[index]+ " index" )
+function Cart (){
+let noNum = 0;
+let empty = true;
     document.getElementById("inCart").innerHTML  = products.map((element)=>{
-      for (let index = 0; index < arr.length; index++) {
-       
-        console.log(count)
-      if (element.id==arr[index]) {
-      console.log( arr[index] +" index")
-      console.log( element.id+" element")
-  
+      for (let index = 0; index < products.length+1; index++) {
 
-   return (
-      `<tr >
-      <th scope="list-inline ">${element.id}</th>
-      <td><img src="${element.url}" style="width: 4rem;" alt=""></td>
-      <td>${element.name}</td>
-      <td class="row justify-content-start">
-        <h5 class="col-sm-2 ">
-        ${element.discount}
-        </h5>
-        <a class="btn btn-primary col-sm-2 btn-sm" onclick="addToCart1(${element.id})">+</a>
-        <a class="btn btn-danger col-sm-2 ml-1 btn-sm">-</a>
-      </td>
-      <td>${element.price}</td>
-    </tr>`
-          )} 
+        if(localStorage.getItem("id"+index)){
+          let idLocal = JSON.parse(localStorage.getItem("id"+index)) ;
+          
+          if (element.id==idLocal.id) {
+            noNum += 1;
+            empty = false;
+            return (
+               `<tr >
+               <th scope="list-inline ">${noNum}</th>
+               <td><img src="${element.url}" style="width: 4rem;" alt=""></td>
+               <td>${element.name}</td>
+               <td class="row justify-content-start">
+                 <h5 class="col-sm-2 mr-2">
+                 ${idLocal.count}
+                 </h5>
+                 
+                 <a class="btn btn-primary col-sm-2 btn-sm" onclick="addToCart1(${element.id})">+</a>
+                 <a class="btn btn-danger col-sm-2 ml-1 btn-sm" onclick="removeToCart1(${element.id})">-</a>
+               </td>
+                
+               <td>${element.price*idLocal.count} $</td>
+             </tr>`
+             
+                   )} 
+                   Totalprice();
+
+        }
         
+
        } }).join("")
+       if(empty){
+        document.getElementById("inCart").innerHTML  = `<div>
+              <h1 class="text-secondary">Cart is emty..</h1>
+          </div>`
+      }
+}
+      Cart ();  
+
+      function Totalprice(){
+        let formatNumber = new Intl.NumberFormat().format(totalprice);
+        let sum = 0;
+
+          for (let index = 0; index < products.length; index++) {
+            if(localStorage.getItem('id'+(index+1))){
+              let ide=(JSON.parse(localStorage.getItem('id'+(index+1))))
+              sum += Number(ide.count)*Number(products[index].price)
+            }
+          }
         
-        
-    function   addToCart1(e){
-      console.log(e)
-        //Find index of specific object using findIndex method.    
-const objIndex = products.findIndex(obj => obj.id == e);
+        totalprice =sum;
+       document.getElementById("totalPrice").innerHTML = "Total Price : " + formatNumber +" $";
+       
+      }
 
-//Log object to Console.
-console.log("Before update: ", products[objIndex])
+      function addToCart1(id){
+        addToCart(id);
+        Cart ();  
+        CountCart()
+        addCountCart() ;
+      }
 
-//Update object's name property.
-products[objIndex].discount ="50";
+      function removeToCart1(id){
+        removeToCart(id);
+        Cart ();  
+        CountCart()
+        addCountCart() ;
+      }
+      function addCountCart() {
+        document.getElementById("countCart").innerHTML =  totalInCart
 
-//Log object to console again.
-console.log("After update: ", products[objIndex])
-       }
+      }
+
+      addCountCart() ;
+     
+
+
